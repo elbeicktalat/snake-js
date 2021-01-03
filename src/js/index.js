@@ -36,16 +36,17 @@ let dir;
 document.addEventListener("keydown", direction);
 
 function direction(event) {
-    if (event.keyCode == 37 && dir != "RIGHT") {
+    let key = event.keyCode;
+    if (key == 37 || key == 65 && dir != "RIGHT") {
         dir = "LEFT";
         shadow.style.display = "none";
-    } else if (event.keyCode == 38 && dir != "DOWN") {
+    } else if (key == 38 || key == 87  && dir != "DOWN") {
         dir = "UP";
         shadow.style.display = "none";
-    } else if (event.keyCode == 39 && dir != "LEFT") {
+    } else if (key == 39 || key == 68 && dir != "LEFT") {
         dir = "RIGHT";
         shadow.style.display = "none";
-    } else if (event.keyCode == 40 && dir != "UP") {
+    } else if (key == 40 || key == 83 && dir != "UP") {
         dir = "DOWN";
         shadow.style.display = "none";
     }
