@@ -1,6 +1,8 @@
 const cvs = document.getElementById("snake");
 const ctx = cvs.getContext("2d");
 
+const shadow = document.getElementById("shadow");
+shadow.innerHTML = `<h1>Start Game</h1>`;
 
 const box = 32;
 
@@ -36,12 +38,16 @@ document.addEventListener("keydown", direction);
 function direction(event) {
     if (event.keyCode == 37 && dir != "RIGHT") {
         dir = "LEFT";
+        shadow.style.display = "none";
     } else if (event.keyCode == 38 && dir != "DOWN") {
         dir = "UP";
+        shadow.style.display = "none";
     } else if (event.keyCode == 39 && dir != "LEFT") {
         dir = "RIGHT";
+        shadow.style.display = "none";
     } else if (event.keyCode == 40 && dir != "UP") {
         dir = "DOWN";
+        shadow.style.display = "none";
     }
 }
 
@@ -101,6 +107,8 @@ function draw() {
     // game over
     if (snakeX < box || snakeX > 17 * box || snakeY < 3 * box || snakeY > 17 * box || collision(newHead, snake)) {
         clearInterval(game);
+        shadow.style.display = "flex";
+        shadow.innerHTML = `<h1>Game Over!</h1>`;
     }
     snake.unshift(newHead);
 
