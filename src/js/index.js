@@ -1,6 +1,8 @@
 const cvs = document.getElementById("snake");
 const ctx = cvs.getContext("2d");
 
+const shadow = document.getElementById("shadow");
+shadow.innerHTML = `<h1>Start Game</h1>`;
 
 const box = 32;
 
@@ -36,15 +38,28 @@ document.addEventListener("keydown", direction);
 function direction(event) {
     if (event.keyCode == 37 && dir != "RIGHT") {
         dir = "LEFT";
+        shadow.style.display = "none";
     } else if (event.keyCode == 38 && dir != "DOWN") {
         dir = "UP";
+        shadow.style.display = "none";
     } else if (event.keyCode == 39 && dir != "LEFT") {
         dir = "RIGHT";
+        shadow.style.display = "none";
     } else if (event.keyCode == 40 && dir != "UP") {
         dir = "DOWN";
+        shadow.style.display = "none";
     }
 }
 
+//cheack collision
+function collision(head, array) {
+    for (let i = 0; i < array.length; i++) {
+        if (head.x == array[i].x && head.y == array[i].y) {
+            return true;
+        }
+    }
+    return false;
+}
 
 //draw all in canvas
 
@@ -55,7 +70,7 @@ function draw() {
         ctx.fillStyle = (i == 0) ? "green" : "white";
         ctx.fillRect(snake[i].x, snake[i].y, box, box);
 
-        ctx.strokeStyle = "blue";
+        ctx.strokeStyle = (i == 0) ? "white" : "green";
         ctx.strokeRect(snake[i].x, snake[i].y, box, box);
     }
     ctx.drawImage(foodImage, food.x, food.y);
@@ -89,6 +104,12 @@ function draw() {
         y: snakeY
     }
 
+    // game over
+    if (snakeX < box || snakeX > 17 * box || snakeY < 3 * box || snakeY > 17 * box || collision(newHead, snake)) {
+        clearInterval(game);
+        shadow.style.display = "flex";
+        shadow.innerHTML = `<h1>Game Over!</h1>`;
+    }
     snake.unshift(newHead);
 
     //score
@@ -97,5 +118,5 @@ function draw() {
     ctx.fillText(score, 80, 60);
 }
 
-//call draw evry 100 ms
-let game = setInterval(draw, 100);
+// call draw every 125 ms
+let game = setInterval(draw, 125);
