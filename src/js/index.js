@@ -45,6 +45,15 @@ function direction(event) {
     }
 }
 
+//cheack collision
+function collision(head, array) {
+    for (let i = 0; i < array.length; i++) {
+        if (head.x == array[i].x && head.y == array[i].y) {
+            return true;
+        }
+    }
+    return false;
+}
 
 //draw all in canvas
 
@@ -55,7 +64,7 @@ function draw() {
         ctx.fillStyle = (i == 0) ? "green" : "white";
         ctx.fillRect(snake[i].x, snake[i].y, box, box);
 
-        ctx.strokeStyle = "blue";
+        ctx.strokeStyle = (i == 0) ? "white" : "green";
         ctx.strokeRect(snake[i].x, snake[i].y, box, box);
     }
     ctx.drawImage(foodImage, food.x, food.y);
@@ -89,6 +98,10 @@ function draw() {
         y: snakeY
     }
 
+    // game over
+    if (snakeX < box || snakeX > 17 * box || snakeY < 3 * box || snakeY > 17 * box || collision(newHead, snake)) {
+        clearInterval(game);
+    }
     snake.unshift(newHead);
 
     //score
@@ -97,5 +110,5 @@ function draw() {
     ctx.fillText(score, 80, 60);
 }
 
-//call draw evry 100 ms
-let game = setInterval(draw, 100);
+// call draw every 125 ms
+let game = setInterval(draw, 125);
