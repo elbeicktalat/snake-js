@@ -5,10 +5,10 @@ A simple implementation of snake game using pure JavaScript.
 
 Press **up** key or other control key.
 
-1. up
-1. down
-1. left
-1. right
+1. **up** or **W**      ==> SNAKE MOVE UP
+1. **down** or **S**    ==> SNAKE MOVE UP
+1. **left** or **A**    ==> SNAKE MOVE UP
+1. **right** or **D**   ==> SNAKE MOVE UP
 
 <img src="README/start-game.png" alt="Button example">
 
@@ -19,5 +19,7 @@ Press **up** key or other control key.
 ## Game Over
 
 When the snake collision himself or touch the border.
+
+To restart click everywhere on the screen or click space key.
 
 <img src="README/game-over.png" alt="Button example">
