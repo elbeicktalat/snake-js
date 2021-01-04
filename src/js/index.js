@@ -37,18 +37,20 @@ document.addEventListener("keydown", direction);
 
 function direction(event) {
     let key = event.keyCode;
-    if (key == 37 || key == 65 && dir != "RIGHT") {
+    if ((key == 37 || key == 65) && dir != "RIGHT") {
         dir = "LEFT";
         shadow.style.display = "none";
-    } else if (key == 38 || key == 87  && dir != "DOWN") {
+    } else if ((key == 38 || key == 87) && dir != "DOWN") {
         dir = "UP";
         shadow.style.display = "none";
-    } else if (key == 39 || key == 68 && dir != "LEFT") {
+    } else if ((key == 39 || key == 68) && dir != "LEFT") {
         dir = "RIGHT";
         shadow.style.display = "none";
-    } else if (key == 40 || key == 83 && dir != "UP") {
+    } else if ((key == 40 || key == 83) && dir != "UP") {
         dir = "DOWN";
         shadow.style.display = "none";
+    } else if (key == 32) {
+        restart();
     }
 }
 
@@ -109,7 +111,9 @@ function draw() {
     if (snakeX < box || snakeX > 17 * box || snakeY < 3 * box || snakeY > 17 * box || collision(newHead, snake)) {
         clearInterval(game);
         shadow.style.display = "flex";
-        shadow.innerHTML = `<h1>Game Over!</h1>`;
+        shadow.innerHTML = `
+        <h1>Game Over!</h1>
+        <h2>Click Me or space key to restart</h2>`;
     }
     snake.unshift(newHead);
 
@@ -121,3 +125,8 @@ function draw() {
 
 // call draw every 125 ms
 let game = setInterval(draw, 125);
+
+//reatart the game
+function restart() {
+    location.reload();
+}
